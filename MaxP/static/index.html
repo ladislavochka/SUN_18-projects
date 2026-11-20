@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Полиця: книги, які ми читаємо</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">Полиця</a>
+    <div id="userbox" class="userbox"></div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Книги, які ми читаємо разом</h1>
+      <p id="summary" class="muted">Завантажую полицю…</p>
+    </section>
+
+    <form class="tools" id="tools" role="search">
+      <input type="search" id="q" placeholder="Назва, автор або слово з опису" aria-label="Пошук">
+      <select id="genre" aria-label="Жанр"><option value="">Усі жанри</option></select>
+      <select id="sort" aria-label="Сортування">
+        <option value="newest">Спочатку нові</option>
+        <option value="oldest">Спочатку старі</option>
+        <option value="title">За назвою</option>
+        <option value="author">За автором</option>
+        <option value="rating">За оцінкою</option>
+      </select>
+      <div class="seg" role="group" aria-label="Чиї книги">
+        <button type="button" data-scope="all" aria-pressed="true">Усі</button>
+        <button type="button" data-scope="mine" aria-pressed="false">Мої</button>
+      </div>
+      <button type="button" id="addBtn" class="primary">Додати книгу</button>
+    </form>
+
+    <div id="grid" class="grid" aria-live="polite"></div>
+    <nav id="pager" class="pager" aria-label="Сторінки"></nav>
+  </main>
+
+  <dialog id="authDlg">
+    <form id="authForm">
+      <h2 id="authTitle">Вхід</h2>
+      <label>Ім'я користувача<input name="username" required minlength="3" maxlength="32" autocomplete="username"></label>
+      <label id="emailRow" hidden>Email<input name="email" type="email" autocomplete="email"></label>
+      <label>Пароль<input name="password" type="password" required minlength="8" maxlength="72" autocomplete="current-password"></label>
+      <p id="authErr" class="err" role="alert"></p>
+      <div class="row">
+        <button type="button" id="authSwitch" class="ghost"></button>
+        <button type="button" class="ghost" data-close>Скасувати</button>
+        <button type="submit" class="primary" id="authSubmit">Увійти</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="bookDlg">
+    <form id="bookForm">
+      <h2 id="bookTitle">Нова книга</h2>
+      <label>Назва<input name="title" required maxlength="200"></label>
+      <label>Автор<input name="author" required maxlength="120"></label>
+      <div class="two">
+        <label>Жанр<input name="genre" list="genreList" maxlength="50"></label>
+        <label>Рік<input name="year" type="number" min="0" max="2100"></label>
+      </div>
+      <label>Моя оцінка
+        <select name="rating">
+          <option value="">Без оцінки</option>
+          <option value="5">5 з 5</option><option value="4">4 з 5</option>
+          <option value="3">3 з 5</option><option value="2">2 з 5</option><option value="1">1 з 5</option>
+        </select>
+      </label>
+      <label>Опис<textarea name="description" rows="4" maxlength="2000"></textarea></label>
+      <datalist id="genreList"></datalist>
+      <p id="bookErr" class="err" role="alert"></p>
+      <div class="row">
+        <button type="button" class="ghost" data-close>Скасувати</button>
+        <button type="submit" class="primary">Зберегти</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
